@@ -1,24 +1,30 @@
-package dev.samcode.CadastroDeNinjas.model;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+package dev.samcode.CadastroDeNinjas.ninjas.model;
+import dev.samcode.CadastroDeNinjas.missoes.model.Missao;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 //Entity transforma uma classe em entidade do BD
 @Entity
 @Table(name = "tb_cadastro")
-public class NinjaModel {
+public class Ninja {
 
     @Id
-    
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
     private int idade;
     private String email;
 
-    public NinjaModel() {
+    //@ManyToOne um ninja tem uma unica missao
+    @ManyToOne
+    @JoinColumn(name = "missoes_id") //chave estrangeira
+    private Missao missoes;
+
+    public Ninja() {
     }
 
-    public NinjaModel(String nome, int idade, String email) {
+    public Ninja(String nome, int idade, String email) {
         this.nome = nome;
         this.idade = idade;
         this.email = email;
